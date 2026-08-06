@@ -160,7 +160,6 @@ export function RecruiterControl() {
       toast.info(`Welcome, ${company}! Custom layout applied locally.`);
     } finally {
       setRecruiterDrawerOpen(false);
-      router.push('/dashboard');
     }
   };
 
@@ -203,7 +202,6 @@ export function RecruiterControl() {
     setCustomPersonalization(recommendation);
     setRecruiterDrawerOpen(false);
     toast.success(`Custom portfolio optimization applied for ${recommendation.company}!`);
-    router.push('/dashboard');
   };
 
   return (

@@ -7,6 +7,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { RecruiterStickyPill } from "@/components/recruiter-sticky-pill";
 import { AIAssistantDrawer } from "@/components/ai-assistant-drawer";
+import { AiAvatar } from "@/components/ai-avatar";
 import { Toaster } from "sonner";
 import "./globals.css";
 
@@ -53,6 +54,7 @@ export default function RootLayout({
               <Footer />
               <RecruiterStickyPill />
               <AIAssistantDrawer />
+              <AiAvatar />
               <Toaster closeButton position="bottom-right" theme="dark" richColors />
             </TooltipProvider>
           </ThemeProvider>

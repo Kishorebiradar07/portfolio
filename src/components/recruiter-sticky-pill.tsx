@@ -19,7 +19,7 @@ export function RecruiterStickyPill() {
           exit={{ opacity: 0, y: 50, scale: 0.9 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
           onClick={() => setRecruiterDrawerOpen(true)}
-          className="fixed bottom-6 right-6 z-30 flex items-center gap-2 px-4 py-2.5 rounded-full bg-violet-600 hover:bg-violet-500 text-white font-medium text-xs shadow-lg shadow-violet-500/20 border border-violet-500/30 cursor-pointer transition-all hover:scale-105"
+          className="fixed bottom-6 left-6 z-30 flex items-center gap-2 px-4 py-2.5 rounded-full bg-violet-600 hover:bg-violet-500 text-white font-medium text-xs shadow-lg shadow-violet-500/20 border border-violet-500/30 cursor-pointer transition-all hover:scale-105"
         >
           <SlidersHorizontal className="h-3.5 w-3.5" />
           <span>Hiring? Customize this site</span>

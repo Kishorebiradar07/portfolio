@@ -13,7 +13,6 @@ import { useRecruiterStore } from '@/store/useRecruiterStore';
 import { defaultIsClerkEnabled } from '@/components/clerk-wrapper';
 
 const navLinks = [
-  { href: '/dashboard', label: 'Recruiter OS' },
   { href: '/about', label: 'About' },
   { href: '/projects', label: 'Projects' },
   { href: '/experience', label: 'Experience' },
@@ -24,7 +23,12 @@ const navLinks = [
 export function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
   const { isCustomized, activeRole, customPersonalization } = useRecruiterStore();
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const getRoleLabel = () => {
     if (customPersonalization) {
@@ -55,7 +59,7 @@ export function Navbar() {
           <Link href="/" className="flex items-center gap-2 font-semibold tracking-wider text-sm transition-opacity hover:opacity-85">
             <Code className="h-5 w-5 text-violet-500" />
             <span className="font-bold">Portfolio.ai</span>
-            {isCustomized && (
+            {mounted && isCustomized && (
               <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-violet-500/10 text-violet-400 border border-violet-500/20 uppercase tracking-widest">
                 <Sparkles className="h-2.5 w-2.5" />
                 {getRoleLabel()}

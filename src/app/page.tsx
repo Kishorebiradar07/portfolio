@@ -223,14 +223,14 @@ export default function Home() {
               className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto pt-4"
             >
               <Link
-                href="/dashboard"
+                href="/contact"
                 className={cn(
                   buttonVariants({ size: 'lg' }),
                   "w-full sm:w-auto bg-violet-600 hover:bg-violet-500 text-white rounded-xl cursor-pointer flex gap-2 h-11 px-6 text-sm font-semibold shadow-[0_0_20px_rgba(124,58,237,0.2)]"
                 )}
               >
-                <Brain className="h-4 w-4" />
-                <span>Launch Recruiter OS</span>
+                <Calendar className="h-4 w-4" />
+                <span>Schedule Interview</span>
               </Link>
               <a
                 href="/resume.pdf"
