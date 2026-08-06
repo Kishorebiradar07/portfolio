@@ -400,7 +400,7 @@ export default function RecruiterDashboard() {
                     <p className="text-xs text-muted-foreground mt-0.5">{CANDIDATE.dept} · {CANDIDATE.college}</p>
                   </div>
                   <p className="text-xs text-muted-foreground leading-relaxed italic border-l-2 border-violet-500/40 pl-3">
-                    "{CANDIDATE.mission}"
+                    &ldquo;{CANDIDATE.mission}&rdquo;
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {CANDIDATE.interests.map(i => (

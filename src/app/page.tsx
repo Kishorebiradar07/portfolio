@@ -334,7 +334,7 @@ export default function Home() {
         <div className="flex items-center justify-between mb-10">
           <div>
             <span className="text-[10px] uppercase font-bold tracking-widest text-violet-400">Featured Work</span>
-            <h2 className="text-2xl font-bold tracking-tight text-foreground mt-1">Research & Hackathon Projects</h2>
+            <h2 className="text-2xl font-bold tracking-tight text-foreground mt-1">Research &amp; Hackathon Projects</h2>
           </div>
           <Link
             href="/projects"
@@ -472,7 +472,7 @@ export default function Home() {
       <section className="w-full max-w-3xl mx-auto px-4 sm:px-6 py-16 border-t border-border">
         <div className="text-center mb-12">
           <span className="text-[10px] uppercase font-bold tracking-widest text-violet-400">Milestones</span>
-          <h2 className="text-2xl font-bold tracking-tight text-foreground mt-1">Academic & Project Timeline</h2>
+          <h2 className="text-2xl font-bold tracking-tight text-foreground mt-1">Academic &amp; Project Timeline</h2>
         </div>
 
         <div className="relative border-l border-border pl-6 ml-3 space-y-8">
