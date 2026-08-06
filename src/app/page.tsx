@@ -185,21 +185,21 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground leading-[1.1]"
+                className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground leading-none font-heading"
               >
                 Kishore Biradar
               </motion.h1>
 
               {/* Rotating role animation */}
-              <div className="h-10 sm:h-12 overflow-hidden relative flex items-center">
+              <div className="h-8 sm:h-10 overflow-hidden relative flex items-center">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={roleIndex}
-                    initial={{ y: 25, opacity: 0 }}
+                    initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -25, opacity: 0 }}
-                    transition={{ duration: 0.35, ease: 'easeInOut' }}
-                    className="text-xl sm:text-2xl font-semibold text-violet-400 uppercase tracking-wide font-mono"
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    className="text-lg sm:text-xl font-medium text-violet-400 font-mono tracking-wide"
                   >
                     {HERO_ROLES[roleIndex]}
                   </motion.span>
@@ -226,7 +226,7 @@ export default function Home() {
                 href="/contact"
                 className={cn(
                   buttonVariants({ size: 'lg' }),
-                  "w-full sm:w-auto bg-violet-600 hover:bg-violet-500 text-white rounded-xl cursor-pointer flex gap-2 h-11 px-6 text-sm font-semibold shadow-[0_0_20px_rgba(124,58,237,0.2)]"
+                  "w-full sm:w-auto bg-violet-600 hover:bg-violet-500 text-white rounded-xl cursor-pointer flex gap-2 h-11 px-6 text-sm font-semibold shadow-[0_0_20px_rgba(124,58,237,0.2)] transition-all duration-300"
                 )}
               >
                 <Calendar className="h-4 w-4" />
@@ -238,7 +238,7 @@ export default function Home() {
                 rel="noreferrer"
                 className={cn(
                   buttonVariants({ variant: 'outline', size: 'lg' }),
-                  "w-full sm:w-auto border-border hover:bg-accent rounded-xl cursor-pointer flex gap-2 h-11 px-6 text-sm font-semibold"
+                  "w-full sm:w-auto border-border hover:bg-accent rounded-xl cursor-pointer flex gap-2 h-11 px-6 text-sm font-semibold transition-all duration-300"
                 )}
               >
                 <FileDown className="h-4 w-4" />
@@ -247,58 +247,45 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* Right Visual Image Layout */}
+          {/* Right Column: Professional Profile Photo */}
           <div className="lg:col-span-5 flex justify-center items-center relative">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="relative w-72 h-72 sm:w-80 sm:h-80 rounded-3xl border border-violet-500/20 bg-card p-6 flex flex-col justify-between overflow-hidden shadow-[0_0_50px_rgba(124,58,237,0.1)] group hover:border-violet-500/40 transition-all duration-500"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1, y: [0, -8, 0] }}
+              transition={{
+                opacity: { duration: 0.5 },
+                scale: { duration: 0.5 },
+                y: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+              }}
+              className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full overflow-hidden border border-border shadow-2xl bg-card group"
             >
-              {/* Futuristic floating visual nodes */}
-              <div className="absolute top-0 right-0 w-48 h-48 bg-violet-500/10 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-8 -left-8 w-36 h-36 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
-              
-              {/* Header inside graphic card */}
-              <div className="flex justify-between items-center z-10">
-                <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-violet-400 animate-pulse" />
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground">Calibration Agent</span>
-                </div>
-                <Terminal className="h-4 w-4 text-violet-400/80" />
-              </div>
-
-              {/* Central Abstract model graphic node */}
-              <div className="my-auto flex flex-col items-center justify-center space-y-3 z-10">
-                <div className="relative">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500/20 to-blue-500/20 border border-violet-500/30 flex items-center justify-center shadow-lg">
-                    <Brain className="h-8 w-8 text-violet-400" />
-                  </div>
-                  {/* Outer orbiting rings */}
-                  <div className="absolute -inset-2.5 rounded-3xl border border-dashed border-violet-500/20 animate-[spin_20s_linear_infinite]" />
-                  <div className="absolute -inset-5 rounded-full border border-violet-500/10 animate-[spin_40s_linear_infinite]" />
-                </div>
-                <div className="text-center">
-                  <p className="font-mono text-xs font-bold text-foreground">IntelliDepth Net</p>
-                  <p className="font-mono text-[9px] text-violet-400 mt-0.5">ECE early-exit validation</p>
-                </div>
-              </div>
-
-              {/* Bottom Telemetry labels */}
-              <div className="flex justify-between items-center pt-4 border-t border-border/40 z-10">
-                <div className="text-left">
-                  <span className="text-[8px] text-muted-foreground uppercase block">Avg savings</span>
-                  <span className="font-mono text-xs font-bold text-foreground">58.45% FLOPs</span>
-                </div>
-                <div className="text-right">
-                  <span className="text-[8px] text-muted-foreground uppercase block">Tuned ECE</span>
-                  <span className="font-mono text-xs font-bold text-foreground">0.024</span>
-                </div>
-              </div>
+              <img
+                src="/profile.png"
+                alt="Kishore Biradar"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-60 pointer-events-none" />
             </motion.div>
           </div>
 
         </div>
+
+        {/* Premium Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          transition={{ delay: 1, duration: 0.5 }}
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 cursor-pointer pointer-events-none"
+        >
+          <span className="text-[8px] font-mono uppercase tracking-widest text-muted-foreground">Scroll to explore</span>
+          <div className="w-5 h-8 rounded-full border border-muted-foreground/45 flex justify-center p-1">
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="w-1 h-1 rounded-full bg-violet-400"
+            />
+          </div>
+        </motion.div>
       </section>
 
       {/* ── 2. TRUST SECTION (HIGHLIGHTS) ─────────────────────────────────── */}
@@ -375,14 +362,23 @@ export default function Home() {
                     <p className="text-xs text-muted-foreground mt-2 leading-relaxed line-clamp-2">{project.tagline}</p>
                   </div>
 
-                  <div className="space-y-2 pt-2 border-t border-border/40 text-xs">
+                  <div className="space-y-3 pt-2 border-t border-border/40 text-xs">
                     <div>
                       <strong className="text-foreground text-[10px] uppercase block mb-1">Problem</strong>
-                      <p className="text-muted-foreground line-clamp-3 leading-relaxed">{project.problem}</p>
+                      <p className="text-muted-foreground line-clamp-2 leading-relaxed">{project.problem}</p>
                     </div>
-                    <div>
-                      <strong className="text-foreground text-[10px] uppercase block mb-1">Results</strong>
-                      <p className="text-muted-foreground leading-relaxed">{project.results}</p>
+
+                    <div className="flex flex-wrap gap-1">
+                      {project.tags.slice(0, 3).map(tag => (
+                        <span key={tag} className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-500/5 border border-emerald-500/10 px-2.5 py-1.5 rounded-xl font-medium mt-1">
+                      <Zap className="h-3.5 w-3.5 shrink-0" />
+                      <span>Key Achievement: {project.metrics[0].value} {project.metrics[0].label}</span>
                     </div>
                   </div>
                 </div>

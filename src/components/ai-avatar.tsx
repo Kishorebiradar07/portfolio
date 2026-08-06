@@ -11,9 +11,9 @@ import {
   Calendar,
   Sparkles,
   User,
-  ShieldCheck,
   Bot,
-  Layers,
+  Volume2,
+  VolumeX,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -27,6 +27,8 @@ interface Message {
 export function AiAvatar() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [inputVal, setInputVal] = React.useState('');
+  const [voiceEnabled, setVoiceEnabled] = React.useState(false);
+  const [isSpeaking, setIsSpeaking] = React.useState(false);
   const [messages, setMessages] = React.useState<Message[]>([
     {
       sender: 'ai',
@@ -39,6 +41,7 @@ export function AiAvatar() {
     // Add user question message
     setMessages((prev) => [...prev, { sender: 'user', text: query }]);
 
+    setIsSpeaking(true);
     setTimeout(() => {
       let response: React.ReactNode = '';
 
@@ -87,18 +90,36 @@ export function AiAvatar() {
             </a>
           </div>
         );
-      } else if (q.includes('algoshield') || q.includes('phishing') || q.includes('hackathon')) {
+      } else if (q.includes('emotion-detection') || q.includes('emotion') || q.includes('facial')) {
         response = (
           <div className="space-y-1.5 leading-relaxed text-xs">
             <p>
-              <strong>AlgoShield</strong> is an NLP phishing email detector built in Python/Scikit-Learn which won **1st Place** at the REVA University National AI Hackathon.
+              <strong>Emotion Detection System</strong> is a facial expression classifier built on an optimized CNN backbone in PyTorch.
             </p>
             <p>
-              ✓ Achieved **96.8% accuracy** on Enron + Kaggle splits.<br />
-              ✓ Features dynamic risk scoring and SPF/DKIM validation logs.
+              ✓ Accuracy rate of **93.4%**.<br />
+              ✓ Inference speeds under **18ms** per frame.
             </p>
             <a
-              href="/projects/algoshield"
+              href="/projects/emotion-detection"
+              className="text-violet-400 font-bold uppercase tracking-wider text-[10px] inline-flex items-center gap-0.5 mt-1 hover:underline"
+            >
+              View Case Study <Sparkles className="h-3 w-3" />
+            </a>
+          </div>
+        );
+      } else if (q.includes('advisor') || q.includes('business') || q.includes('advisor')) {
+        response = (
+          <div className="space-y-1.5 leading-relaxed text-xs">
+            <p>
+              <strong>AI Business Advisor</strong> parses business reports to generate financial audits and recommendations.
+            </p>
+            <p>
+              ✓ Prompt structural maps yield **95.2% accuracy**.<br />
+              ✓ Context pipelines answer in **1.2 seconds**.
+            </p>
+            <a
+              href="/projects/ai-business-advisor"
               className="text-violet-400 font-bold uppercase tracking-wider text-[10px] inline-flex items-center gap-0.5 mt-1 hover:underline"
             >
               View Case Study <Sparkles className="h-3 w-3" />
@@ -120,7 +141,7 @@ export function AiAvatar() {
         response = (
           <div className="space-y-1 leading-relaxed text-xs">
             <p>
-              Kishore is a final-year ECE student at Sai Vidya Institute of Technology specializing in **Deep Learning optimizations** (PyTorch) and **NLP cybersecurity applications**.
+              Kishore is a final-year ECE student at Sai Vidya Institute of Technology specializing in **Deep Learning optimizations** (PyTorch) and **NLP applications**.
             </p>
             <p>
               Try asking: "Tell me about IntelliDepth", "Download his resume", or "Schedule an interview".
@@ -130,7 +151,8 @@ export function AiAvatar() {
       }
 
       setMessages((prev) => [...prev, { sender: 'ai', text: response }]);
-    }, 700);
+      setIsSpeaking(false);
+    }, 850);
   };
 
   const handleSend = (e: React.FormEvent) => {
@@ -168,12 +190,30 @@ export function AiAvatar() {
                   <span className="text-[9px] text-zinc-500 uppercase tracking-widest block font-mono">Knowledge Base RAG</span>
                 </div>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="p-1 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
-              >
-                <X className="h-4 w-4" />
-              </button>
+              
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setVoiceEnabled(!voiceEnabled);
+                    toast.success(voiceEnabled ? 'Voice output disabled.' : 'Voice output enabled (synthesizer logs ready).');
+                  }}
+                  className={cn(
+                    "p-1.5 rounded-lg border border-border/40 hover:bg-muted text-muted-foreground transition-all cursor-pointer",
+                    voiceEnabled ? "text-violet-400 border-violet-500/20 bg-violet-500/5" : ""
+                  )}
+                  aria-label="Toggle voice output mode"
+                >
+                  {voiceEnabled ? <Volume2 className="h-3.5 w-3.5" /> : <VolumeX className="h-3.5 w-3.5" />}
+                </button>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
+                  aria-label="Close assistant"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </div>
             </div>
 
             {/* Message Area */}
@@ -202,7 +242,7 @@ export function AiAvatar() {
               ))}
             </div>
 
-            {/* Suggestions list */}
+            {/* suggestions list */}
             <div className="p-3 border-t border-border/40 bg-muted/10 space-y-1.5">
               <div className="text-[8px] uppercase tracking-widest text-muted-foreground font-mono px-1">Suggested Inquiries</div>
               <div className="flex flex-wrap gap-1">
@@ -210,7 +250,7 @@ export function AiAvatar() {
                   'Tell me about IntelliDepth',
                   'Download Resume',
                   'Schedule Interview',
-                  'What is AlgoShield?',
+                  'What is Emotion Detection?',
                 ].map((sug) => (
                   <button
                     key={sug}
@@ -222,6 +262,34 @@ export function AiAvatar() {
                 ))}
               </div>
             </div>
+
+            {/* Voice visemes visualizer placeholder */}
+            {voiceEnabled && (
+              <div className="px-4 py-2 border-t border-border/40 bg-violet-500/[0.02] flex items-center justify-between">
+                <div className="flex gap-1 items-center h-4">
+                  {[...Array(6)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      animate={isSpeaking ? {
+                        height: [4, 16, 4],
+                      } : {
+                        height: [4, 6, 4],
+                      }}
+                      transition={{
+                        duration: 0.6,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                        delay: i * 0.1,
+                      }}
+                      className="w-0.5 rounded-full bg-violet-400"
+                    />
+                  ))}
+                </div>
+                <span className="text-[8px] font-mono text-zinc-500 uppercase tracking-widest">
+                  {isSpeaking ? "Synthesizing visemes..." : "Voice mode idle"}
+                </span>
+              </div>
+            )}
 
             {/* Input field */}
             <form onSubmit={handleSend} className="p-3 border-t border-border flex gap-2 bg-muted/20">
@@ -250,6 +318,16 @@ export function AiAvatar() {
         className="relative group border border-violet-500/30 bg-card rounded-full p-3.5 shadow-2xl flex items-center justify-center cursor-pointer overflow-visible"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
+        animate={{
+          y: [0, -3, 1, -2, 0],
+          x: [0, 1.5, -1, 0.5, 0],
+          rotate: [0, 1.5, -1, 0.5, 0]
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
       >
         {/* Holographic Concentric breathing rings */}
         <motion.div
