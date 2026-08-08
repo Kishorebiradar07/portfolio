@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Brain,
@@ -14,21 +15,12 @@ import {
   ChevronRight,
   Sparkles,
   Layers,
-  Code,
-  ShieldCheck,
-  CheckCircle,
-  Database,
-  Cloud,
-  Terminal,
   Calendar,
   Zap,
   Globe,
-  Sliders,
-  ArrowUpRight,
   BookOpen,
-  GitBranch,
 } from 'lucide-react';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { projectsData } from '@/lib/projects';
@@ -252,10 +244,13 @@ export default function Home() {
               }}
               className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full overflow-hidden border border-border shadow-2xl bg-card group"
             >
-              <img
+              <Image
                 src="/profile.png"
                 alt="Kishore Biradar Headshot Portrait"
+                width={288}
+                height={288}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-60 pointer-events-none" />
             </motion.div>
