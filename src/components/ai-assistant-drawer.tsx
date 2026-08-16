@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Send, Sparkles, X, CornerDownLeft, Bot, MessageSquare } from 'lucide-react';
+import { Send, Bot, MessageSquare } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -72,7 +72,7 @@ export function AIAssistantDrawer() {
       // Append empty assistant message to fill up during streaming
       setMessages((prev) => [...prev, { role: 'assistant', content: '' }]);
 
-      let assistantResponse = '';
+      const responseChunks: string[] = [];
       let done = false;
 
       while (!done) {
@@ -91,18 +91,18 @@ export function AIAssistantDrawer() {
               try {
                 const dataJson = JSON.parse(line.slice(6));
                 const content = dataJson.choices[0]?.delta?.content || '';
-                assistantResponse += content;
+                responseChunks.push(content);
 
                 // Update last assistant message in place
                 setMessages((prev) => {
                   const updated = [...prev];
                   const last = updated[updated.length - 1];
                   if (last && last.role === 'assistant') {
-                    last.content = assistantResponse;
+                    last.content = responseChunks.join('');
                   }
                   return updated;
                 });
-              } catch (e) {
+              } catch {
                 // Ignore parse errors on partial streams
               }
             }

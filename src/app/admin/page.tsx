@@ -2,15 +2,14 @@ import Link from 'next/link';
 import { db } from '@/db';
 import { recruiters, feedback, messages } from '@/db/schema';
 import { desc } from 'drizzle-orm';
-import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { ArrowLeft, Users, MessageSquare, Star, Settings2, Shield } from 'lucide-react';
+import { ArrowLeft, Users, MessageSquare, Star, Settings2, Shield, AlertTriangle } from 'lucide-react';
 
 export const revalidate = 0; // Disable server rendering cache to load live telemetry
 
 async function fetchTelemetryData() {
   // If database is not configured (local developer setup), return mock stats
-  if (!process.env.DATABASE_URL) {
+  if (!db || !process.env.DATABASE_URL) {
     return {
       recruitersLog: [
         { id: '1', company: 'OpenAI', email: 'recruiter@openai.com', roleInterest: 'nlp', createdAt: new Date() },
@@ -59,8 +58,25 @@ async function fetchTelemetryData() {
 export default async function AdminDashboardPage() {
   const { recruitersLog, feedbackLog, stats } = await fetchTelemetryData();
 
+  const isClerkConfigured = !!(
+    process.env.CLERK_SECRET_KEY &&
+    !process.env.CLERK_SECRET_KEY.includes('placeholder') &&
+    process.env.CLERK_SECRET_KEY.length > 30
+  );
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full space-y-10">
+      {!isClerkConfigured && (
+        <div className="p-4 rounded-xl border border-amber-500/25 bg-amber-500/5 text-amber-400 text-xs flex items-start gap-3">
+          <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <h4 className="font-bold text-foreground">Developer Bypass Mode (Auth Disabled)</h4>
+            <p className="leading-relaxed">
+              Clerk API credentials are unconfigured or using default placeholder templates in your `.env` variables. Access control checks on the administration dashboard have been deactivated, and analytics telemetry matches local offline mockup stats.
+            </p>
+          </div>
+        </div>
+      )}
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">

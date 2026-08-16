@@ -6,7 +6,7 @@ export interface ResumeDetails {
     github: string;
     linkedin: string;
     location: string;
-    phone: string; // Left as TODO indicator as requested to prevent fabrication
+    phone: string;
     summary: string;
   };
   education: {
@@ -48,123 +48,121 @@ export interface ResumeDetails {
 export const resumeData: ResumeDetails = {
   personal: {
     name: 'Kishore Biradar',
-    role: 'Applied AI & ECE Engineer',
+    role: 'AI & Machine Learning Engineer',
     email: 'biradarkishore07@gmail.com',
-    github: 'https://github.com/biradarkishore07',
-    linkedin: 'https://linkedin.com',
+    github: 'https://github.com/Kishorebiradar07',
+    linkedin: 'https://www.linkedin.com/in/kishore-biradar-366126252',
     location: 'Bangalore, India',
-    phone: 'TODO: Provide Phone Number',
-    summary: 'Final-year Electronics & Communication Engineering student at Sai Vidya Institute of Technology specializing in deep learning optimization, model calibration (ECE Expected Calibration Error scaling), and low-latency edge AI system engineering.',
+    phone: '+91 9353311721',
+    summary: 'A 2027 AI & Machine Learning engineering student who enjoys building practical intelligent systems and exploring AI/ML, while developing strong programming and problem-solving skills.',
   },
   education: [
     {
-      degree: 'Bachelor of Engineering in ECE',
-      spec: 'Specialization in Artificial Intelligence & Machine Learning',
+      degree: 'B.E. in Artificial Intelligence and Machine Learning',
+      spec: 'Undergraduate Program',
       institution: 'Sai Vidya Institute of Technology, Bangalore',
-      dates: '2022 - 2026',
-      gpa: '3.90 / 4.00 equivalent',
-    },
-  ],
-  experience: [
-    {
-      role: 'Machine Learning Engineering Intern',
-      company: 'NeuralFlow AI',
-      location: 'Remote',
-      duration: 'Jun 2025 - Aug 2025',
-      bullets: [
-        'Configured PyTorch serving models inside Docker images, reducing Triton host container footprint by 18%.',
-        'Developed custom data loaders and validation scripts for automated hyperparameter optimization loops.',
-        'Created low-latency FastAPI inference routes supporting concurrent image classifications.',
-      ],
+      dates: '2023 - 2027',
+      gpa: '8.4 CGPA',
     },
     {
-      role: 'Undergraduate Research Assistant',
-      company: 'CS Deep Learning Laboratory',
-      location: 'On-Campus',
-      duration: 'Sep 2024 - Present',
-      bullets: [
-        'Contributed benchmark evaluations for joint multi-exit ResNet classifiers, testing reliability under shifted datasets.',
-        'Assisted in implementing Platt scaling and temperature scaling calibration algorithms.',
-        'Documented metric analysis reports, co-authoring a workshop paper on model calibration reliability.',
-      ],
+      degree: 'State Board – Class XII',
+      spec: 'Pre-University Education',
+      institution: 'SC Gurukula PU College, Karadyal, Bhalki',
+      dates: '2021 - 2023',
+      gpa: '75.16%',
+    },
+    {
+      degree: 'State Board – Class X',
+      spec: 'Secondary School Certification',
+      institution: 'St. Mark The High School, Hyderabad',
+      dates: '2021',
+      gpa: '9.5 CGPA',
     },
   ],
+  experience: [], // No formal professional experience listed in resume; projects and hackathons handled separately
   projects: [
     {
-      title: 'IntelliDepth Adaptive Inference',
-      role: 'ResNet Calibration Architect',
-      summary: 'Dynamic early-exit classification system on ResNet-56 backbones calibrated using L-BFGS temperature scaling.',
+      title: 'Facial and Vocal Emotion Detection',
+      role: 'Developer',
+      summary: 'Multimodal emotion detection system leveraging facial feature mappings and vocal sequence learning models.',
       highlights: [
-        'Decreased Expected Calibration Error (ECE) to 0.024.',
-        'Saved an average of 58.45% FLOP compute costs.',
-        'Achieved 10.03% adaptive validation accuracy on CIFAR-100 datasets.',
+        'Integrated FaceNet for facial emotion recognition',
+        'Implemented RNN and LSTM networks for vocal emotion detection',
+        'Engineered feature-level fusion using Fully Connected Networks (FCN)',
+        'Collected live datasets for training and testing',
       ],
     },
     {
-      title: 'Emotion Detection System',
-      role: 'Computer Vision Engineer',
-      summary: 'Facial recognition expression classifier optimizing PyTorch CNN models for high frame rate execution.',
+      title: 'IntelliDepth Adaptive Inference',
+      role: 'ML Developer (In Progress)',
+      summary: 'Dynamic early-exit classifier on ResNet-56 backbones calibrated using L-BFGS temperature scaling.',
       highlights: [
-        'Optimized custom model weights down to a 12MB footprint.',
-        'Attained facial categorization accuracy of 93.4%.',
-        'Reduced frame classification inference latency below 18ms.',
+        'Adaptive exit stopping policy based on confidence scores',
+        'Joint multi-exit network backpropagation gradient schedules',
+        'Calibrated exits using L-BFGS scaling to reduce Expected Calibration Error',
       ],
     },
     {
       title: 'AI Business Advisor',
-      role: 'Full-Stack Developer',
-      summary: 'Automated consultation pipeline querying OpenAI API endpoints and indexing document inputs.',
+      role: 'Prototype Developer',
+      summary: 'Intelligent business consultation dashboard parsing local financial sheets and documents.',
       highlights: [
-        'Prompt mapping templates yielded a 95.2% calculation accuracy.',
-        'Structured context channels answering queries in 1.2 seconds.',
+        'OpenAI API integration for consultation responses',
+        'Prompt template modeling to yield structured JSON response schemas',
+        'Implemented state storage handles using Zustand',
       ],
     },
   ],
   certifications: [
     {
-      title: 'AWS Academy Graduate - Machine Learning',
-      issuer: 'Amazon Web Services',
-      date: '2025',
+      title: 'IBM SkillsBuild - Artificial Intelligence Fundamentals',
+      issuer: 'IBM SkillsBuild',
+      date: 'August 20, 2025',
     },
     {
-      title: 'Deep Learning Specialization',
-      issuer: 'DeepLearning.AI',
-      date: '2024',
+      title: 'AWS Academy Graduate - Generative AI Foundations - Training Badge',
+      issuer: 'AWS Academy',
+      date: 'November 30, 2025',
     },
     {
-      title: 'Google TensorFlow Developer Professional Certificate',
-      issuer: 'Google (Coursera)',
-      date: '2024',
+      title: 'IBM SkillsBuild - AI Literacy',
+      issuer: 'IBM SkillsBuild',
+      date: 'December 14, 2025',
+    },
+    {
+      title: 'Foundations of Deep Learning: Concepts and Applications (Score: 54%)',
+      issuer: 'IISc Bangalore / NPTEL',
+      date: 'Jan–Apr 2026',
     },
   ],
   achievements: [
     {
-      title: 'Winner - National Level AI Hackathon',
-      desc: 'AlgoShield email phishing classifier using NLP, TF-IDF vectorization, and sender DKIM validators at REVA University.',
-      date: '2025',
+      title: 'Participant - HackVerse Hackathon',
+      desc: 'Participated in the HackVerse Hackathon at Sai Vidya Institute of Technology, Bangalore.',
+      date: 'April 9–11, 2026',
     },
     {
-      title: 'Academic Excellence Scholar',
-      desc: 'Maintained a 3.90/4.00 CGPA equivalent in Electronics and Communication Engineering.',
-      date: '2022 - 2026',
+      title: 'Participant - Gemma: Bengaluru AI Sprint',
+      desc: 'Participated in Google Build with Gemma initiative national-level AI hackathon under team TraceX.',
+      date: 'April 2026',
     },
   ],
   skills: [
     {
-      category: 'AI Engineering & ML',
-      keywords: ['PyTorch', 'TensorFlow', 'Model Calibration (ECE)', 'L-BFGS Optimization', 'Platt Scaling', 'Temperature Scaling', 'Random Forest', 'Scikit-Learn'],
+      category: 'AI & Machine Learning',
+      keywords: ['FaceNet', 'RNN', 'LSTM', 'Fully Connected Networks (FCN)', 'PyTorch', 'TensorFlow', 'Model Calibration'],
     },
     {
-      category: 'Computer Vision & NLP',
-      keywords: ['OpenCV', 'Image Preprocessing', 'Feature Extraction', 'TF-IDF Vectorizers', 'Text Classification', 'NLTK', 'Tokenization'],
+      category: 'Programming & Concepts',
+      keywords: ['C', 'Python', 'JavaScript', 'HTML', 'CSS', 'Data Structures & Algorithms using C'],
     },
     {
       category: 'Frontend & Backend',
-      keywords: ['Next.js (App Router)', 'React 19', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Node.js', 'FastAPI', 'REST APIs', 'Zod Schema'],
+      keywords: ['Next.js (App Router)', 'TypeScript', 'Tailwind CSS', 'Zustand', 'React', 'Node.js', 'FastAPI'],
     },
     {
-      category: 'DevOps & Databases',
-      keywords: ['Docker Containers', 'Git & GitHub', 'CLI Scripting', 'Linux OS', 'PostgreSQL', 'Supabase', 'pgvector Store', 'Drizzle ORM', 'AWS SageMaker'],
+      category: 'Databases & Tools',
+      keywords: ['PostgreSQL', 'Supabase', 'Drizzle ORM', 'Git', 'GitHub', 'Docker'],
     },
   ],
 };

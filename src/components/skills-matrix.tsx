@@ -9,8 +9,7 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from 'recharts';
-import { Brain, Settings, Terminal, Layout } from 'lucide-react';
-import { useRecruiterStore } from '@/store/useRecruiterStore';
+import { Brain, Settings, Layout } from 'lucide-react';
 
 interface SkillItem {
   subject: string;
@@ -43,19 +42,7 @@ const skillsData: Record<string, SkillItem[]> = {
 };
 
 export function SkillsMatrix() {
-  const { activeRole } = useRecruiterStore();
   const [activeCategory, setActiveCategory] = React.useState<'ai' | 'engineering' | 'ops'>('ai');
-
-  // Dynamically switch category if activeRole changes
-  React.useEffect(() => {
-    if (activeRole === 'mlops') {
-      setActiveCategory('ops');
-    } else if (activeRole === 'fullstack-ai') {
-      setActiveCategory('engineering');
-    } else if (activeRole === 'nlp') {
-      setActiveCategory('ai');
-    }
-  }, [activeRole]);
 
   const getCategoryTitle = () => {
     switch (activeCategory) {
@@ -65,19 +52,6 @@ export function SkillsMatrix() {
         return 'Full-Stack Software Architecture';
       default:
         return 'AI Research & Deep Learning';
-    }
-  };
-
-  const getRoleClarityHint = () => {
-    switch (activeRole) {
-      case 'mlops':
-        return 'Currently showcasing: Docker, Kubernetes, and CI/CD pipelines as requested by ML Ops Mode.';
-      case 'fullstack-ai':
-        return 'Currently showcasing: Next.js App Router, TypeScript, and SQL schemas as requested by Full-Stack Mode.';
-      case 'nlp':
-        return 'Currently showcasing: RAG algorithms and Deep Learning proficiencies as requested by NLP Mode.';
-      default:
-        return 'Switch Recruiter Mode in the navbar to customize highlights.';
     }
   };
 
@@ -93,7 +67,7 @@ export function SkillsMatrix() {
             {getCategoryTitle()}
           </h3>
           <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-            Proficiencies are updated via project benchmarks. {getRoleClarityHint()}
+            Proficiencies are updated via project benchmarks. Explore my key technical competencies in AI Research, Full-Stack Architecture, and Infrastructure.
           </p>
         </div>
 
@@ -109,7 +83,7 @@ export function SkillsMatrix() {
             return (
               <button
                 key={cat.id}
-                onClick={() => setActiveCategory(cat.id as any)}
+                onClick={() => setActiveCategory(cat.id as 'ai' | 'engineering' | 'ops')}
                 className={`flex items-center gap-3 p-3 rounded-lg border text-left cursor-pointer transition-all ${
                   isActive
                     ? 'border-violet-500 bg-violet-500/5 text-violet-400'

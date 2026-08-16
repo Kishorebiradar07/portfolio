@@ -11,10 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "src/components/ui/dialog"
-import {
-  InputGroup,
-  InputGroupAddon,
-} from "src/components/ui/input-group"
 import { SearchIcon, CheckIcon } from "lucide-react"
 
 function Command({
@@ -33,6 +29,12 @@ function Command({
   )
 }
 
+/**
+ * CommandDialog — wraps children in BOTH the base-ui Dialog AND the cmdk Command root.
+ * Previously children were placed directly inside DialogContent with NO cmdk Command
+ * context, causing "Cannot read properties of undefined (reading 'subscribe')" when
+ * CommandPrimitive.Input tried to access the cmdk store.
+ */
 function CommandDialog({
   title = "Command Palette",
   description = "Search for a command to run...",
@@ -60,7 +62,13 @@ function CommandDialog({
         )}
         showCloseButton={showCloseButton}
       >
-        {children}
+        {/* ⚠ cmdk Command root MUST wrap children so CommandPrimitive.Input
+            can access the cmdk store via React context */}
+        <CommandPrimitive
+          className="flex size-full flex-col overflow-hidden rounded-xl bg-popover text-popover-foreground"
+        >
+          {children}
+        </CommandPrimitive>
       </DialogContent>
     </Dialog>
   )
@@ -71,20 +79,16 @@ function CommandInput({
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Input>) {
   return (
-    <div data-slot="command-input-wrapper" className="p-1 pb-0">
-      <InputGroup className="h-8! rounded-lg! border-input/30 bg-input/30 shadow-none! *:data-[slot=input-group-addon]:pl-2!">
-        <CommandPrimitive.Input
-          data-slot="command-input"
-          className={cn(
-            "w-full text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
-            className
-          )}
-          {...props}
-        />
-        <InputGroupAddon>
-          <SearchIcon className="size-4 shrink-0 opacity-50" />
-        </InputGroupAddon>
-      </InputGroup>
+    <div data-slot="command-input-wrapper" className="flex items-center border-b border-border/40 px-3 py-2 gap-2">
+      <SearchIcon className="size-4 shrink-0 opacity-50" />
+      <CommandPrimitive.Input
+        data-slot="command-input"
+        className={cn(
+          "flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
+          className
+        )}
+        {...props}
+      />
     </div>
   )
 }

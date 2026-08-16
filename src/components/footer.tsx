@@ -1,23 +1,21 @@
 'use client';
 
 import * as React from 'react';
-import Link from 'next/link';
-import { Linkedin, Mail, Twitter } from 'lucide-react';
+import { Linkedin, Mail } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-border bg-background mt-auto py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-        {/* Copy text */}
-        <div className="flex items-center gap-4">
+    <footer className="w-full border-t border-border bg-card/30 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Attribution & Copyright */}
+        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} AI Engineer Portfolio. All rights reserved.
+            &copy; {new Date().getFullYear()} Kishore Biradar. All rights reserved.
           </p>
-          <span className="hidden sm:inline-block h-3 w-[1px] bg-border" />
-          <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">
-              RAG Engine Online
+          <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground/60">
+            <span className="h-1 w-1 rounded-full bg-violet-400" />
+            <span>
+              AI &amp; Machine Learning Engineering student
             </span>
           </div>
         </div>
@@ -25,7 +23,7 @@ export function Footer() {
         {/* Social Links */}
         <div className="flex items-center gap-4">
           <a
-            href="https://github.com"
+            href="https://github.com/Kishorebiradar07"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors"
@@ -34,7 +32,7 @@ export function Footer() {
             <span className="sr-only">GitHub</span>
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/kishore-biradar-366126252"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors"
@@ -43,16 +41,7 @@ export function Footer() {
             <span className="sr-only">LinkedIn</span>
           </a>
           <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <Twitter className="h-4 w-4" />
-            <span className="sr-only">Twitter</span>
-          </a>
-          <a
-            href="mailto:contact@developer.com"
+            href="mailto:biradarkishore07@gmail.com?subject=Portfolio%20Inquiry%20%E2%80%94%20Kishore%20Biradar"
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
             <Mail className="h-4 w-4" />

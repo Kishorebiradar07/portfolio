@@ -39,7 +39,7 @@ export const useRecruiterStore = create<RecruiterState>((set) => ({
   recruiterDrawerOpen: false,
   customPersonalization: null,
   setActiveRole: (role) =>
-    set((state) => ({
+    set(() => ({
       activeRole: role,
       isCustomized: role !== 'default',
       // Clear custom personalization if preset roles are toggled

@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { projectsData } from '@/lib/projects';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'http://localhost:3000'; // Replace with production URL during deploy
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
   // Static routes
   const staticRoutes = [
@@ -10,7 +10,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/about',
     '/projects',
     '/experience',
-    '/blog',
     '/contact',
   ].map((route) => ({
     url: `${baseUrl}${route}`,

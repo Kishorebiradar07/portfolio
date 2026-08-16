@@ -8,16 +8,10 @@ import {
   Mail,
   Github,
   Linkedin,
-  GraduationCap,
-  Briefcase,
-  Award,
-  Trophy,
-  Sliders,
   CheckCircle,
   AlertCircle,
   HelpCircle,
   ArrowUpRight,
-  BookOpen,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -44,7 +38,7 @@ export default function ResumePage() {
       const result = await matchJobDescription(jobDescription);
       setMatchResult(result);
       toast.success('Profile analysis completed successfully!');
-    } catch (err) {
+    } catch {
       toast.error('Failed to analyze job description.');
     } finally {
       setIsMatching(false);
@@ -134,7 +128,13 @@ export default function ResumePage() {
                     
                     <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 text-xs text-muted-foreground font-mono pt-1">
                       <span className="flex items-center gap-1">
-                        <Mail className="h-3.5 w-3.5" /> {resumeData.personal.email}
+                        <Mail className="h-3.5 w-3.5" />
+                        <a
+                          href={`mailto:${resumeData.personal.email}?subject=Portfolio%20Inquiry%20%E2%80%94%20Kishore%20Biradar`}
+                          className="hover:text-foreground hover:underline transition-colors"
+                        >
+                          {resumeData.personal.email}
+                        </a>
                       </span>
                       <span>•</span>
                       <span>{resumeData.personal.location}</span>
@@ -286,7 +286,7 @@ export default function ResumePage() {
                     <div>
                       <h2 className="text-base font-bold text-foreground">Paste Job Specification</h2>
                       <p className="text-xs text-muted-foreground mt-1">
-                        Our scanner will check Kishore's ECE optimization research, core PyTorch assets, and full-stack tags against job requirements.
+                        Our scanner will check Kishore&apos;s AI/ML optimization research, core PyTorch assets, and full-stack tags against job requirements.
                       </p>
                     </div>
 

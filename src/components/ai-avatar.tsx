@@ -1,15 +1,13 @@
 'use client';
 
 import * as React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
-  Brain,
   MessageSquare,
   X,
   Send,
   FileDown,
   Calendar,
-  Sparkles,
   User,
   Bot,
   Volume2,
@@ -25,6 +23,7 @@ interface Message {
 }
 
 export function AiAvatar() {
+  const shouldReduceMotion = useReducedMotion();
   const [isOpen, setIsOpen] = React.useState(false);
   const [inputVal, setInputVal] = React.useState('');
   const [voiceEnabled, setVoiceEnabled] = React.useState(false);
@@ -32,7 +31,7 @@ export function AiAvatar() {
   const [messages, setMessages] = React.useState<Message[]>([
     {
       sender: 'ai',
-      text: "Hi, I'm Kishore's AI assistant. Ask me anything about his credentials, ECE projects, or hiring availability!",
+      text: "Hi, I'm Kishore's AI assistant. Ask me anything about his AI/ML projects, technical skills, experience, or hiring availability!",
     },
   ]);
 
@@ -50,24 +49,18 @@ export function AiAvatar() {
         response = (
           <div className="space-y-1.5 leading-relaxed text-xs">
             <p>
-              <strong>IntelliDepth</strong> is Kishore's major ECE graduation project: a confidence-calibrated multi-exit ResNet-56 classifier built in PyTorch.
+              <strong>IntelliDepth</strong> is Kishore&apos;s major CSE (AI &amp; ML) graduation project: a confidence-calibrated multi-exit ResNet-56 classifier built in PyTorch.
             </p>
             <p>
               ✓ Saves **58.45% compute** (FLOPs) on CIFAR-100 test sets.<br />
               ✓ ECE error lowered to **0.024** via L-BFGS temperature scaling.
             </p>
-            <a
-              href="/projects/intellidepth"
-              className="text-violet-400 font-bold uppercase tracking-wider text-[10px] inline-flex items-center gap-0.5 mt-1 hover:underline"
-            >
-              View Case Study <Sparkles className="h-3 w-3" />
-            </a>
           </div>
         );
       } else if (q.includes('resume') || q.includes('cv') || q.includes('download')) {
         response = (
           <div className="space-y-1 leading-relaxed text-xs">
-            <p>You can download Kishore's optimized CV / Resume directly here:</p>
+            <p>You can download Kishore&apos;s optimized CV / Resume directly here:</p>
             <a
               href="/resume.pdf"
               target="_blank"
@@ -81,12 +74,12 @@ export function AiAvatar() {
       } else if (q.includes('schedule') || q.includes('interview') || q.includes('hire')) {
         response = (
           <div className="space-y-1 leading-relaxed text-xs">
-            <p>Sure, schedule a technical interview slot directly on his booking calendar:</p>
+            <p>Sure, reach out via email or submit a message on his contact page:</p>
             <a
               href="/contact"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-white font-bold text-[10px] uppercase tracking-wider mt-1 shadow-sm cursor-pointer"
             >
-              <Calendar className="h-3.5 w-3.5" /> Book Interview Slot
+              <Calendar className="h-3.5 w-3.5" /> Contact Form
             </a>
           </div>
         );
@@ -100,12 +93,6 @@ export function AiAvatar() {
               ✓ Accuracy rate of **93.4%**.<br />
               ✓ Inference speeds under **18ms** per frame.
             </p>
-            <a
-              href="/projects/emotion-detection"
-              className="text-violet-400 font-bold uppercase tracking-wider text-[10px] inline-flex items-center gap-0.5 mt-1 hover:underline"
-            >
-              View Case Study <Sparkles className="h-3 w-3" />
-            </a>
           </div>
         );
       } else if (q.includes('advisor') || q.includes('business') || q.includes('advisor')) {
@@ -118,12 +105,6 @@ export function AiAvatar() {
               ✓ Prompt structural maps yield **95.2% accuracy**.<br />
               ✓ Context pipelines answer in **1.2 seconds**.
             </p>
-            <a
-              href="/projects/ai-business-advisor"
-              className="text-violet-400 font-bold uppercase tracking-wider text-[10px] inline-flex items-center gap-0.5 mt-1 hover:underline"
-            >
-              View Case Study <Sparkles className="h-3 w-3" />
-            </a>
           </div>
         );
       } else if (q.includes('skills') || q.includes('tech') || q.includes('know')) {
@@ -141,10 +122,10 @@ export function AiAvatar() {
         response = (
           <div className="space-y-1 leading-relaxed text-xs">
             <p>
-              Kishore is a final-year ECE student at Sai Vidya Institute of Technology specializing in **Deep Learning optimizations** (PyTorch) and **NLP applications**.
+              Kishore is an AI & Machine Learning Engineering student at Sai Vidya Institute of Technology specializing in building practical intelligent systems.
             </p>
             <p>
-              Try asking: "Tell me about IntelliDepth", "Download his resume", or "Schedule an interview".
+              Try asking: &quot;Tell me about IntelliDepth&quot;, &quot;Download his resume&quot;, or &quot;Schedule an interview&quot;.
             </p>
           </div>
         );
@@ -186,7 +167,7 @@ export function AiAvatar() {
                   <div className="absolute bottom-0 right-0 h-2 w-2 rounded-full bg-emerald-400 border border-card" />
                 </div>
                 <div className="text-left">
-                  <span className="text-xs font-bold text-foreground block">Kishore's Assistant</span>
+                  <span className="text-xs font-bold text-foreground block">Kishore&apos;s Assistant</span>
                   <span className="text-[9px] text-zinc-500 uppercase tracking-widest block font-mono">Knowledge Base RAG</span>
                 </div>
               </div>
@@ -315,10 +296,10 @@ export function AiAvatar() {
       {/* ── 3. FLOATING AI AVATAR TRIGGER ───────────────────────────────────── */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative group border border-violet-500/30 bg-card rounded-full p-3.5 shadow-2xl flex items-center justify-center cursor-pointer overflow-visible"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        animate={{
+        className="relative group border border-violet-500/30 bg-card rounded-full p-3.5 shadow-2xl flex items-center justify-center cursor-pointer overflow-visible focus:ring-2 focus:ring-violet-500 focus:outline-none"
+        whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+        whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+        animate={shouldReduceMotion ? {} : {
           y: [0, -3, 1, -2, 0],
           x: [0, 1.5, -1, 0.5, 0],
           rotate: [0, 1.5, -1, 0.5, 0]
@@ -328,11 +309,13 @@ export function AiAvatar() {
           repeat: Infinity,
           ease: "easeInOut"
         }}
+        aria-label="Open AI Recruiter Assistant"
+        aria-expanded={isOpen}
       >
         {/* Holographic Concentric breathing rings */}
         <motion.div
           className="absolute -inset-1 rounded-full border border-violet-500/20"
-          animate={{
+          animate={shouldReduceMotion ? { scale: 1, opacity: 0.25 } : {
             scale: [1, 1.25, 1],
             opacity: [0.4, 0.1, 0.4],
           }}
@@ -344,7 +327,7 @@ export function AiAvatar() {
         />
         <motion.div
           className="absolute -inset-2.5 rounded-full border border-violet-500/10"
-          animate={{
+          animate={shouldReduceMotion ? { scale: 1, opacity: 0.15 } : {
             scale: [1, 1.4, 1],
             opacity: [0.2, 0.05, 0.2],
           }}
@@ -359,7 +342,7 @@ export function AiAvatar() {
         {/* Breathing inner orb visual */}
         <motion.div
           className="absolute inset-0.5 rounded-full bg-violet-500/5 filter blur-xs"
-          animate={{
+          animate={shouldReduceMotion ? { opacity: 0.4 } : {
             opacity: [0.3, 0.6, 0.3],
           }}
           transition={{
@@ -374,7 +357,7 @@ export function AiAvatar() {
           <MessageSquare className="h-5 w-5 text-violet-400" />
           <motion.div
             className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-violet-400"
-            animate={{
+            animate={shouldReduceMotion ? { scaleY: 1 } : {
               scaleY: [1, 1, 0.1, 1, 1], // Blink simulation
             }}
             transition={{

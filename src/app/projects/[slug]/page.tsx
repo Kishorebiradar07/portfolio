@@ -14,19 +14,13 @@ import {
   Calendar,
   Cpu,
   Server,
-  Zap,
-  Play,
-  Terminal,
   HelpCircle,
   Sparkles,
-  Search,
-  CheckCircle,
 } from 'lucide-react';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { projectsData, CaseStudy } from '@/lib/projects';
+import { projectsData } from '@/lib/projects';
 import { cn } from '@/lib/utils';
-import { toast } from 'sonner';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -48,9 +42,10 @@ export default function ProjectCaseStudyPage({ params }: Props) {
   React.useEffect(() => {
     let interval: NodeJS.Timeout;
     if (aiModalOpen) {
-      setAiStep(0);
-      setTypedAnswer('');
-      const steps = [1000, 2000, 3000]; // timing for RAG console simulation
+      setTimeout(() => {
+        setAiStep(0);
+        setTypedAnswer('');
+      }, 0);
       
       let stepCount = 0;
       interval = setInterval(() => {
@@ -110,32 +105,38 @@ export default function ProjectCaseStudyPage({ params }: Props) {
 
           {/* Action buttons & AI explainer */}
           <div className="space-y-2.5">
-            <div className="flex gap-2.5">
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noreferrer"
-                className={cn(
-                  buttonVariants({ variant: 'default' }),
-                  "flex-1 bg-violet-600 text-white hover:bg-violet-500 rounded-xl cursor-pointer h-10 px-4 text-xs font-semibold flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(124,58,237,0.15)]"
+            {(project.githubUrl || project.demoUrl) && (
+              <div className="flex gap-2.5">
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={cn(
+                      buttonVariants({ variant: 'default' }),
+                      "flex-1 bg-violet-600 text-white hover:bg-violet-500 rounded-xl cursor-pointer h-10 px-4 text-xs font-semibold flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(124,58,237,0.15)]"
+                    )}
+                  >
+                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" /><path d="M9 18c-4.51 2-5-2-7-2" /></svg>
+                    <span>View Source</span>
+                  </a>
                 )}
-              >
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" /><path d="M9 18c-4.51 2-5-2-7-2" /></svg>
-                <span>View Source</span>
-              </a>
-              <a
-                href={project.demoUrl}
-                target="_blank"
-                rel="noreferrer"
-                className={cn(
-                  buttonVariants({ variant: 'outline' }),
-                  "flex-1 border-border hover:bg-accent rounded-xl cursor-pointer h-10 px-4 text-xs font-semibold flex items-center justify-center gap-2"
+                {project.demoUrl && (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={cn(
+                      buttonVariants({ variant: 'outline' }),
+                      "flex-1 border-border hover:bg-accent rounded-xl cursor-pointer h-10 px-4 text-xs font-semibold flex items-center justify-center gap-2"
+                    )}
+                  >
+                    <span>Launch Demo</span>
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
                 )}
-              >
-                <span>Launch Demo</span>
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </a>
-            </div>
+              </div>
+            )}
 
             {/* Explain this project AI triggers */}
             <Button
@@ -370,7 +371,7 @@ export default function ProjectCaseStudyPage({ params }: Props) {
                 {/* Step 1: Query logs */}
                 <div className="space-y-1">
                   <span className="text-violet-400 block">[USER QUERY]</span>
-                  <span className="text-foreground">"Explain early-exit temperature scaling in {project.slug}..."</span>
+                  <span className="text-foreground">&quot;Explain early-exit temperature scaling in {project.slug}...&quot;</span>
                 </div>
 
                 {/* Step 2: Vector search simulation */}
@@ -383,7 +384,7 @@ export default function ProjectCaseStudyPage({ params }: Props) {
                     <span className="text-amber-400 block">[RAG VECTOR SEARCH]</span>
                     <span className="block text-[11px] text-zinc-500">Query Embedding: [0.125, -0.048, 0.912, ...] (1536-dim)</span>
                     <span className="block text-[11px] text-zinc-500">Searching indexes fallbackKnowledgeBase...</span>
-                    <span className="text-emerald-400 block">✓ Retrieved doc matches title: "Education Background" & "Milestones" (Similarity: 0.892)</span>
+                    <span className="text-emerald-400 block">✓ Retrieved doc matches title: &quot;Education Background&quot; &amp; &quot;Milestones&quot; (Similarity: 0.892)</span>
                   </motion.div>
                 )}
 
@@ -396,7 +397,7 @@ export default function ProjectCaseStudyPage({ params }: Props) {
                   >
                     <span className="text-blue-400 block">[CONTEXT FED TO MODEL]</span>
                     <span className="block text-[10px] text-zinc-500 italic bg-muted/20 p-2 rounded">
-                      "He specializes in deep learning model calibration (IntelliDepth early-exit system saving 58.45% FLOPs) tuned using L-BFGS..."
+                      &quot;He specializes in deep learning model calibration (IntelliDepth early-exit system saving 58.45% FLOPs) tuned using L-BFGS...&quot;
                     </span>
                   </motion.div>
                 )}

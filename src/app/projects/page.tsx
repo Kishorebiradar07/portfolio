@@ -1,29 +1,17 @@
 'use client';
 
 import * as React from 'react';
-import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Search,
-  SlidersHorizontal,
   Brain,
-  Trophy,
-  Award,
-  Code,
-  Github,
-  ArrowUpRight,
-  ChevronRight,
   Layers,
-  Sparkles,
-  Zap,
-  Globe,
-  Sliders,
   ShieldCheck,
 } from 'lucide-react';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { projectsData, CaseStudy } from '@/lib/projects';
+import { projectsData } from '@/lib/projects';
 
 // Category filter list
 const CATEGORY_FILTERS = [
@@ -169,15 +157,8 @@ export default function ProjectsPage() {
               </div>
 
               {/* Action Buttons */}
-              <div className="p-6 pt-0 border-t border-border/30 mt-4 flex items-center justify-between">
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-violet-400 hover:text-violet-300 transition-colors"
-                >
-                  View Case Study
-                  <ChevronRight className="h-3.5 w-3.5" />
-                </Link>
-                <div className="flex gap-2">
+              <div className="p-6 pt-0 border-t border-border/30 mt-4 flex items-center justify-end gap-2">
+                {project.githubUrl ? (
                   <a
                     href={project.githubUrl}
                     target="_blank"
@@ -189,6 +170,8 @@ export default function ProjectsPage() {
                   >
                     GitHub
                   </a>
+                ) : null}
+                {project.demoUrl ? (
                   <a
                     href={project.demoUrl}
                     target="_blank"
@@ -200,7 +183,12 @@ export default function ProjectsPage() {
                   >
                     Demo
                   </a>
-                </div>
+                ) : null}
+                {!project.githubUrl && !project.demoUrl && (
+                  <span className="text-[9px] font-mono text-muted-foreground/60 uppercase tracking-wider">
+                    Links coming soon
+                  </span>
+                )}
               </div>
 
             </motion.div>

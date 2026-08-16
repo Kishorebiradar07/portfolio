@@ -31,7 +31,14 @@ export async function POST(req: Request) {
             messages: [
               {
                 role: 'system',
-                content: `You are the AI Recruiter Assistant representing the candidate. Your goal is to answer recruiters questions about the candidate's skills, qualifications, and projects. Use the following candidate database context to ground your answer. Be professional, concise, and focused on helping the recruiter assess the candidate's software engineering capabilities. If the context doesn't contain the answer, politely say you don't know or suggest contacting the developer.
+                content: `You are the AI Recruiter Assistant representing the candidate, Kishore Biradar.
+                Strict Content Policy:
+                - You MAY answer questions about Kishore's education, background, certifications, hackathon participations, skills, technologies, and high-level summaries/purposes of projects.
+                - You MUST NOT reveal detailed project case studies, private/unpublished documentation, detailed implementation walkthroughs, internal architectures, folder structures, or source-code explanations.
+                - If the user asks for "case study", "complete case study", "architecture", "details", "code", or similarly requests deep implementation files, you MUST respond exactly:
+                  "The detailed case study for this project isn't published yet. I can give you a high-level overview of the project and its purpose."
+                - Do NOT provide hidden project notes, database dumps, or knowledge-base context.
+                - Do NOT expose repository URLs or live demo URLs. Keep them private.
                 
                 CONTEXT:
                 ${contextText}`,
@@ -41,7 +48,7 @@ export async function POST(req: Request) {
             stream: true,
           }),
         });
-
+ 
         if (response.ok) {
           // Stream raw completion tokens directly back to the client
           return new Response(response.body, {
@@ -61,39 +68,47 @@ export async function POST(req: Request) {
     const queryLower = lastUserMessage.toLowerCase();
     let responseText = '';
 
-    if (queryLower.includes('latency') || queryLower.includes('exit') || queryLower.includes('resnet') || queryLower.includes('intellidepth')) {
-      responseText = `Based on the candidate's case studies, the **IntelliDepth Deep Learning System** implements a joint multi-exit ResNet classifier. 
-      
-Intermediate classifiers are branched directly from intermediate convolutional blocks. Simple images exit early at early layers, bypassing downstream operations to reduce latency by **42%**. 
+    const isCaseStudyOrDetailQuery = 
+      queryLower.includes('case study') || 
+      queryLower.includes('case-study') || 
+      queryLower.includes('complete case study') || 
+      queryLower.includes('architecture') || 
+      queryLower.includes('implementation') ||
+      queryLower.includes('walkthrough') ||
+      queryLower.includes('code') ||
+      queryLower.includes('details') ||
+      queryLower.includes('structure') ||
+      queryLower.includes('documentation') ||
+      queryLower.includes('source');
 
-To prevent miscalibrated predictions, the model serving pipeline applies post-hoc **temperature scaling**, optimizing logits outputs to reach an Expected Calibration Error (ECE) of **0.024** (retaining 98.6% baseline accuracy).`;
-    } else if (queryLower.includes('vector') || queryLower.includes('rag') || queryLower.includes('supabase') || queryLower.includes('database') || queryLower.includes('search')) {
-      responseText = `The candidate engineered **AutoRAG**, a semantic search vector database engine using **pgvector** and HNSW indexes in Supabase PostgreSQL. 
-
-The pipeline uses parent-child overlap strategies to process large documents, avoiding semantic boundary truncation. At retrieval time, the system uses cosine similarity, passing the top-k matches to a **BGE Reranker** cross-encoder model to boost relevancy. 
-
-Benchmark results show a **94.2% retrieval recall** with an average search latency of **38ms**.`;
-    } else if (queryLower.includes('kubernetes') || queryLower.includes('k8s') || queryLower.includes('docker') || queryLower.includes('ops') || queryLower.includes('flownet')) {
-      responseText = `The candidate built **FlowNet**, a Kubernetes-native ML training pipeline orchestrator. 
-
-It handles automated container compilation, cluster resources mapping, and sidecar volume logging. Telemery telemetry is scraped by Prometheus and projected on a custom developer dashboard. 
-
-The system achieves **99.9% failure recovery** via auto-rescheduling training loops and increases training pipeline job throughput by **68%**.`;
-    } else if (queryLower.includes('gpa') || queryLower.includes('education') || queryLower.includes('academic') || queryLower.includes('gpa')) {
-      responseText = `The candidate is in his final year of a Bachelor of Science in Computer Science, specializing in Artificial Intelligence & Machine Learning. He holds a Cumulative GPA of **3.90 / 4.00**, has been named to the Dean's List for 4 semesters, and is a co-author of a deep learning calibration workshop paper.`;
+    if (isCaseStudyOrDetailQuery && (
+      queryLower.includes('intellidepth') || 
+      queryLower.includes('emotion') || 
+      queryLower.includes('detection') || 
+      queryLower.includes('advisor') || 
+      queryLower.includes('business')
+    )) {
+      responseText = "The detailed case study for this project isn't published yet. I can give you a high-level overview of the project and its purpose.";
+    } else if (queryLower.includes('latency') || queryLower.includes('exit') || queryLower.includes('resnet') || queryLower.includes('intellidepth')) {
+      responseText = `IntelliDepth is a deep learning research project mapping joint multi-exit ResNet classifiers for adaptive inference. The project aims to dynamically adjust neural network execution latency depending on sample complexity, utilizing model calibration techniques to maintain reliable confidence scores.`;
+    } else if (queryLower.includes('emotion') || queryLower.includes('detection') || queryLower.includes('facial') || queryLower.includes('expression')) {
+      responseText = `The Facial and Vocal Emotion Detection project is a multimodal classification system that uses deep feature representations (FaceNet for facial video frames and RNN/LSTM backbones for speech audio sequences) to classify human emotional states.`;
+    } else if (queryLower.includes('advisor') || queryLower.includes('business') || queryLower.includes('openai') || queryLower.includes('gpt')) {
+      responseText = `The AI Business Advisor is an NLP prototype that leverages OpenAI API structures inside a Next.js framework to analyze business documents and retrieve formatted insights.`;
+    } else if (queryLower.includes('gpa') || queryLower.includes('education') || queryLower.includes('academic') || queryLower.includes('college')) {
+      responseText = `Kishore is a Computer Science and Engineering (AI & ML) final-year undergraduate student at Sai Vidya Institute of Technology, Bangalore (2023–2027 batch) with a CGPA of 8.4.`;
     } else {
-      responseText = `Hello! I am the candidate's AI Recruiter Assistant. I have vector access to his resume, projects, and credentials. 
+      responseText = `Hello! I am Kishore's AI Recruiter Assistant. I have local access to his credentials, academic records, and projects. 
 
-Based on my knowledge base, here are his main capabilities:
-• **Machine Learning Serving**: Multi-exit ResNet classifiers with temperature scaling calibration (**IntelliDepth**).
-• **Vector Databases**: Supabase, pgvector, HNSW indexing, parent-child chunk RAG pipelines (**AutoRAG**).
-• **ML Infrastructure**: Kubernetes orchestrations, Prometheus scrapes, sidecar container logs (**FlowNet**).
-• **Full Stack Dev**: Next.js App Router, TypeScript, Drizzle ORM.
+Based on my knowledge base, here are his projects:
+• **Facial and Vocal Emotion Detection**: Multimodal FaceNet and LSTM emotion recognition classifier.
+• **IntelliDepth**: Joint multi-exit ResNet-56 image classifier calibrated via L-BFGS temperature scaling (Status: In Progress).
+• **AI Business Advisor**: Financial document auditing platform prototype using Next.js and the OpenAI API.
 
-You can ask me specific questions like:
-* "How does IntelliDepth reduce latency?"
-* "What is the retrieval speed of AutoRAG?"
-* "What are his certifications?"`;
+You can ask me questions like:
+* "What is his academic background?"
+* "How does his emotion detection project work?"
+* "What is the status of IntelliDepth?"`;
     }
 
     // Stream responseText back word-by-word

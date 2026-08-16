@@ -1,15 +1,20 @@
-import { drizzle } from 'drizzle-orm/postgres-js';
+import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import * as schema from './schema';
 
 const connectionString = process.env.DATABASE_URL;
 
-if (!connectionString) {
-  throw new Error('DATABASE_URL environment variable is missing.');
+let dbInstance: PostgresJsDatabase<typeof schema> | null = null;
+
+if (connectionString) {
+  try {
+    const client = postgres(connectionString, { prepare: false });
+    dbInstance = drizzle(client, { schema });
+  } catch (err) {
+    console.error('Failed to initialize database client:', err);
+  }
+} else {
+  console.log('DATABASE_URL is not set. Telemetry DB logging is disabled.');
 }
 
-// Disable SSL for local dev if needed, or enforce for production depending on env.
-// For Supabase, SSL is usually required.
-const client = postgres(connectionString, { prepare: false });
-
-export const db = drizzle(client, { schema });
+export const db = dbInstance;

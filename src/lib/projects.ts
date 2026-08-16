@@ -16,12 +16,13 @@ export interface CaseStudy {
   title: string;
   tagline: string;
   category: string;
-  status: 'Completed' | 'In Progress';
+  status: 'Completed' | 'In Progress' | 'Prototype' | 'Academic Project';
   difficulty: 'Advanced' | 'Intermediate';
   metrics: { label: string; value: string }[];
   tags: string[];
-  githubUrl: string;
-  demoUrl: string;
+  // Set to a real URL string when available; null means button is hidden/disabled.
+  githubUrl: string | null;
+  demoUrl: string | null;
   roleWeight: {
     default: number;
     mlops: number;
@@ -31,7 +32,7 @@ export interface CaseStudy {
   problem: string;
   motivation: string;
   research: string;
-  architecture: string; 
+  architecture: string;
   techChoices: string[];
   folderStructure: string;
   keyFeatures: string[];
@@ -51,16 +52,16 @@ export const projectsData: CaseStudy[] = [
     title: 'IntelliDepth Adaptive inference',
     tagline: 'Joint multi-exit ResNet-56 image classifier calibrated using temperature scaling and early-exit thresholds.',
     category: 'Deep Learning & ML Optimization',
-    status: 'Completed',
+    status: 'In Progress',
     difficulty: 'Advanced',
     metrics: [
-      { label: 'Compute Saved', value: '58.45%' },
-      { label: 'Adaptive Accuracy', value: '10.03%' },
-      { label: 'ECE Score', value: '0.024' },
+      { label: 'Status', value: 'Active Research' },
+      { label: 'Compute Target (FLOPs)', value: '-58%' },
+      { label: 'ECE Error Target', value: '< 0.03' },
     ],
     tags: ['PyTorch', 'ResNet-56', 'Calibration', 'Expected Calibration Error (ECE)', 'L-BFGS', 'CIFAR-100', 'Early Exit'],
-    githubUrl: 'https://github.com/biradarkishore07/intellidepth',
-    demoUrl: 'https://intellidepth.kishore.dev',
+    githubUrl: null, // Will be added once repository is published
+    demoUrl: null,   // No live demo available
     roleWeight: {
       default: 3,
       mlops: 2,
@@ -89,7 +90,7 @@ export const projectsData: CaseStudy[] = [
     ],
     challenges: 'Intermediate branches degrade downstream conv training due to backprop gradient interference, and out-of-distribution corrupted inputs trigger overconfident early exits.',
     solutions: 'Adopted a joint training schedule where intermediate exits are trained sequentially with gradient scaling. Employed post-hoc temperature scaling to calibrate individual exits and calculated thresholds using a Pareto optimization curve.',
-    results: 'Saved an average of 58.45% computation cost (FLOPs) on CIFAR-100 test sets while achieving 10.03% adaptive test accuracy (matching baseline capacities) and reducing ECE to 0.024.',
+    results: 'In Progress. The optimization network is currently under active research. Numerical metrics represent engineering design targets rather than verified final outputs. Final validations on CIFAR-100 and robustness evaluations on CIFAR-100-C are ongoing.',
     lessons: 'Platt/temperature scaling must be fitted to exits individually. A global temp modifier fails to address confidence drift across early vs deep representation maps.',
     future: 'Design an adaptive gating layer using reinforced networks to predict optimal exit routes before computing branch filters.',
     timeline: [
@@ -108,75 +109,75 @@ export const projectsData: CaseStudy[] = [
   },
   {
     slug: 'emotion-detection',
-    title: 'Emotion Detection System',
-    tagline: 'Facial expression classifier built on an optimized CNN backbone in PyTorch.',
+    title: 'Facial and Vocal Emotion Detection',
+    tagline: 'Multimodal emotion detection system leveraging FaceNet and sequence models to fuse facial and vocal feature mappings.',
     category: 'Computer Vision & Deep Learning',
     status: 'Completed',
     difficulty: 'Intermediate',
     metrics: [
-      { label: 'Classification Acc', value: '93.4%' },
-      { label: 'Inference Speed', value: '< 18ms' },
-      { label: 'Model Size', value: '12MB' },
+      { label: 'Facial Network', value: 'FaceNet' },
+      { label: 'Vocal Network', value: 'RNN + LSTM' },
+      { label: 'Fusion Layer', value: 'FCN Model' },
     ],
-    tags: ['PyTorch', 'CNN', 'OpenCV', 'Deep Learning', 'Facial Recognition', 'Model Optimization'],
-    githubUrl: 'https://github.com/biradarkishore07/emotion-detection',
-    demoUrl: 'https://emotion.kishore.dev',
+    tags: ['PyTorch', 'FaceNet', 'RNN', 'LSTM', 'Fully Connected Networks', 'OpenCV', 'Multimodal'],
+    githubUrl: null, // Will be added once repository is published
+    demoUrl: null,   // No live demo available
     roleWeight: {
       default: 2,
       mlops: 2,
       'fullstack-ai': 1,
       nlp: 1,
     },
-    problem: 'Detecting facial expressions in real-time requires lightweight architectures to run effectively on low-power devices without sacrificing classification accuracy.',
-    motivation: 'To develop an optimized CNN classifier capable of tracking facial expressions at high frame rates for human-computer interaction applications.',
-    research: 'Evaluated parameter-efficient CNN architectures and spatial augmentation techniques to improve model generalization under variable lighting.',
-    architecture: 'Input video frames are captured, aligned using face detection coordinates, and fed into a custom PyTorch CNN model to output probability logs for key expression categories.',
-    techChoices: ['PyTorch (for neural network training)', 'OpenCV (for video capture preprocess)', 'NumPy (for frame transformations)', 'Matplotlib (for performance plotting)'],
+    problem: 'Standard expression recognizers rely only on visual features, which fail in poor lighting or when expressions are masked. Vocal acoustics offer a secondary signal to verify human affect.',
+    motivation: 'To develop a multimodal network architecture that fuses spatial face descriptors with temporal speech patterns for robust affective computing.',
+    research: 'Investigated FaceNet for facial coordinate bounding boxes and designed recurrent models (RNN/LSTM) to ingest sequential audio spectrogram vectors.',
+    architecture: 'Routes visual inputs to FaceNet to output spatial embeddings, and acoustic inputs to RNN/LSTM blocks. A Fully Connected Network (FCN) performs feature-level fusion, concatenating visual and audio embeddings to output expression classifications.',
+    techChoices: ['PyTorch (for backbone training)', 'FaceNet (for visual embeddings)', 'LSTM/RNN (for sequential speech inputs)', 'OpenCV (facial preprocessing)', 'FCN (feature concatenation & fusion)'],
     folderStructure: `emotion-detection/
-├── preprocess.py   # Facial alignment & cropping filters
-├── model.py        # PyTorch custom CNN layers
-├── train.py        # Optimization & epoch loops
-└── demo.py         # Real-time OpenCV video stream handler`,
+├── preprocess/   # Face detection & audio spectrogram alignment
+├── models/       # FaceNet visual, LSTM audio, and FCN fusion modules
+├── train.py      # Multimodal joint training pipelines
+└── demo.py       # Live stream inference overlay interface`,
     keyFeatures: [
-      'Facial coordinate tracking preprocess using custom filters.',
-      'Optimized CNN layers for edge hardware compatibility.',
-      'Real-time inference video overlay running at 50+ fps.',
-      'Softmax categorical probability expression outputs.',
+      'Multimodal fusion of face and voice streams.',
+      'Pre-trained FaceNet spatial encoder.',
+      'Sequential LSTM temporal audio processing.',
+      'Feature concatenation fusion using fully connected networks.',
     ],
-    challenges: 'Varying facial illumination and background noise degrade expression detection rates in real-world scenarios.',
-    solutions: 'Applied histogram equalization to standardize frame brightness and used random rotation transforms during training.',
-    results: 'Attained a classification accuracy of 93.4% and ran real-time inference at under 18ms per frame.',
-    lessons: 'Preprocessing is critical: proper facial bounding-box alignment before classification improves accuracy much more than adding layers.',
-    future: 'Incorporate temporal facial markers via recurrent networks to classify expressions across video sequences.',
+    challenges: 'Aligning sample rates between video frames and voice inputs, and compiling custom live datasets.',
+    solutions: 'Synchronized audio and video capture frame buffers, and manually compiled a set of localized, live video-audio recordings for model evaluation.',
+    results: 'Successfully created the multimodal pipeline. Collected live datasets to train and evaluate the spatial FaceNet, sequential LSTM, and Fully Connected Network fusion layers.',
+    lessons: 'Feature-level concatenation outperforms unimodal classification but requires scaling adjustments to prevent visual parameters from dominating speech vectors.',
+    future: 'Analyze decision-level fusion strategies to measure comparative model robustness.',
     timeline: [
-      { phase: 'Design & preprocessing', date: 'Sep 2024', desc: 'Integrated OpenCV facial landmarks tracking and designed preprocessing filters.' },
-      { phase: 'Model formulation', date: 'Oct 2024', desc: 'Programmed custom CNN layers in PyTorch, testing hyperparameter schedules.' },
-      { phase: 'Training & Tuning', date: 'Nov 2024', desc: 'Trained model on facial expression sets and optimized kernel weights.' },
-      { phase: 'Buffer Integration', date: 'Dec 2024', desc: 'Packaged inference loop with frame buffers to output overlay predictions.' }
+      { phase: 'Architecture planning', date: 'Oct 2024', desc: 'Researched FaceNet coordinate mappings and audio sequence networks.' },
+      { phase: 'Dataset Collection', date: 'Nov 2024', desc: 'Recorded and pre-processed live face and vocal samples.' },
+      { phase: 'Model formulation', date: 'Dec 2024', desc: 'Programmed FaceNet facial extractors and LSTM models in PyTorch.' },
+      { phase: 'Fusion & Testing', date: 'Jan 2025', desc: 'Integrated Fully Connected Network (FCN) fusion layers to run joint evaluation.' }
     ],
     insights: {
       whySelected: 'PyTorch was selected for its easy parameter structuring, which is crucial for building custom CNN layers and measuring network execution.',
-      tradeoffs: 'Decided on a custom lightweight CNN instead of a heavy ResNet-50. This reduced accuracy by ~1.2% but improved frame rate by 5x.',
-      performance: 'Executes forward-pass predictions in under 18ms on consumer CPU hardware.',
-      scalability: 'The optimized model weight footprint (12MB) makes it easy to host directly on Raspberry Pi edge cameras.'
+      tradeoffs: 'Fusing features at an early stage requires clean synchronization alignments, but provides much richer representation vectors than late decision voting.',
+      performance: 'Consolidated feature models execute predictions in real-time on desktop CPU buffers.',
+      scalability: 'The network architecture separates audio and visual streams, allowing either branch to be swapped or retrained independently.'
     },
-    aiExplanation: 'The Emotion Detection system operates by cropping facial bounding boxes from webcams. It normalizes lighting using contrast scaling, and maps them into a custom CNN model trained in PyTorch. The model extracts spatial texture features and classifies facial expressions into primary categories like Happy, Neutral, or Surprised.'
+    aiExplanation: 'This multimodal system combines visual and acoustic inputs. Visual feeds run through FaceNet to extract spatial face mappings. Speech feeds are captured and mapped into LSTMs for vocal acoustics. A Fully Connected Network concatenates these features to produce a unified emotion classification.'
   },
   {
     slug: 'ai-business-advisor',
     title: 'AI Business Advisor',
-    tagline: 'Intelligent business consulting tool leveraging OpenAI APIs and Next.js to parse local financial records.',
+    tagline: 'Intelligent business consulting prototype leveraging OpenAI APIs and Next.js to parse local financial records.',
     category: 'Natural Language Processing & Web AI',
-    status: 'Completed',
+    status: 'Prototype',
     difficulty: 'Intermediate',
     metrics: [
-      { label: 'LLM Accuracy', value: '95.2%' },
-      { label: 'Context Windows', value: '128k tokens' },
-      { label: 'Response Latency', value: '1.2s' },
+      { label: 'Integration', value: 'OpenAI API' },
+      { label: 'Framework', value: 'Next.js App' },
+      { label: 'Status', value: 'Prototype' },
     ],
     tags: ['OpenAI API', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Zustand', 'Vector Search'],
-    githubUrl: 'https://github.com/biradarkishore07/ai-business-advisor',
-    demoUrl: 'https://business-advisor.kishore.dev',
+    githubUrl: null, // Will be added once repository is published
+    demoUrl: null,   // No live demo available
     roleWeight: {
       default: 2,
       mlops: 1,
@@ -202,7 +203,7 @@ export const projectsData: CaseStudy[] = [
     ],
     challenges: 'Large document uploads exceed context windows, and raw API responses can include unwanted text formatting.',
     solutions: 'Structured templates with strict format indicators to guarantee clean outputs, and added token chunking arrays.',
-    results: 'Achieved response delivery speeds averaging 1.2s and attained 95.2% accuracy in financial audits.',
+    results: 'In Progress. The project is currently an active prototype/proof-of-concept demonstrating prompt structuring techniques to generate JSON recommendation cards. Performance figures are based on prototype simulations.',
     lessons: 'Directing the model to validate its own calculation steps before writing recommendation lists prevents hallucination.',
     future: 'Implement a local embeddings system using vector indexes to search extensive tax records dynamically.',
     timeline: [

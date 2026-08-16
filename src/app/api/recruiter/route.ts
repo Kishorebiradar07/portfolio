@@ -11,6 +11,11 @@ export async function POST(req: Request) {
     }
 
     // Insert recruiter log into PostgreSQL
+    if (!db || !process.env.DATABASE_URL) {
+      console.log('Local Offline Mode: Logged recruiter visit:', { company, email, roleInterest });
+      return NextResponse.json({ success: true, id: 'offline-recruiter-id' });
+    }
+
     const [inserted] = await db
       .insert(recruiters)
       .values({

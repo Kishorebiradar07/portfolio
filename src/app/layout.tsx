@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { RecruiterStickyPill } from "@/components/recruiter-sticky-pill";
 import { AIAssistantDrawer } from "@/components/ai-assistant-drawer";
 import { AiAvatar } from "@/components/ai-avatar";
 import { Toaster } from "sonner";
@@ -22,9 +21,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Engineer Portfolio | Machine Learning & Full-Stack AI Product Architect",
-  description: "Premium engineering portfolio showcasing Production AI/ML pipelines, Full-Stack AI products, and interactive Recruiter Mode customization.",
-  metadataBase: new URL("http://localhost:3000"), // Will be updated to production URL later
+  title: "Kishore Biradar | AI Engineer & Full-Stack Developer Portfolio",
+  description: "Showcasing confidence-calibrated PyTorch networks, low-latency edge AI pipelines, and interactive recruiter-customized job specifications.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
+  openGraph: {
+    title: "Kishore Biradar | AI Engineer & Full-Stack Developer Portfolio",
+    description: "Showcasing confidence-calibrated PyTorch networks, low-latency edge AI pipelines, and interactive recruiter-customized job specifications.",
+    url: "/",
+    siteName: "Kishore Biradar Portfolio",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kishore Biradar | AI Engineer & Full-Stack Developer Portfolio",
+    description: "Showcasing confidence-calibrated PyTorch networks, low-latency edge AI pipelines, and interactive recruiter-customized job specifications.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -52,7 +68,6 @@ export default function RootLayout({
                 {children}
               </main>
               <Footer />
-              <RecruiterStickyPill />
               <AIAssistantDrawer />
               <AiAvatar />
               <Toaster closeButton position="bottom-right" theme="dark" richColors />

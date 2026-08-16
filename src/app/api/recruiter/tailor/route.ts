@@ -153,7 +153,7 @@ Generate a JSON object recommending which assets to highlight:
 
     // Optional: Log recruiter customization session in DB
     try {
-      if (process.env.DATABASE_URL) {
+      if (process.env.DATABASE_URL && db) {
         await db.insert(recruiters).values({
           company,
           email: null,

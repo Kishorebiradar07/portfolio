@@ -1,23 +1,23 @@
 import { SkillsMatrix } from '@/components/skills-matrix';
-import { Award, GraduationCap, Trophy, Sparkles } from 'lucide-react';
+import { Award, GraduationCap, Trophy } from 'lucide-react';
 
 const credentials = {
   certificates: [
-    { title: 'AWS Academy Graduate - Machine Learning', issuer: 'Amazon Web Services', date: '2025' },
-    { title: 'Deep Learning Specialization', issuer: 'DeepLearning.AI', date: '2024' },
-    { title: 'Google TensorFlow Developer Professional Certificate', issuer: 'Google (Coursera)', date: '2024' },
+    { title: 'IBM SkillsBuild - Artificial Intelligence Fundamentals', issuer: 'IBM SkillsBuild', date: 'Aug 2025' },
+    { title: 'AWS Academy Graduate - Generative AI Foundations', issuer: 'AWS Academy', date: 'Nov 2025' },
+    { title: 'IBM SkillsBuild - AI Literacy', issuer: 'IBM SkillsBuild', date: 'Dec 2025' },
+    { title: 'NPTEL - Foundations of Deep Learning (Score: 54%)', issuer: 'IISc Bangalore / NPTEL', date: 'Jan-Apr 2026' },
   ],
   achievements: [
-    { title: 'Winner - National Level AI Hackathon', desc: 'AlgoShield email phishing classifier using NLP & meta flags at REVA University.', date: '2025' },
-    { title: 'Academic Excellence Scholar', desc: 'Maintained 3.90 GPA/CGPA equivalent in Electronics and Communication Engineering.', date: '2022 - 2026' },
-    { title: 'IntelliDepth ResNet Architect', desc: 'Successfully designed confidence-calibrated adaptive inference early exit layers.', date: '2026' },
+    { title: 'Participant - HackVerse Hackathon', desc: 'Participated in the HackVerse Hackathon at Sai Vidya Institute of Technology, demonstrating team-based software innovation.', date: 'Apr 2026' },
+    { title: 'Participant - Gemma: Bengaluru AI Sprint', desc: 'Participated under team name TraceX in the Google Build with Gemma national AI hackathon.', date: 'Apr 2026' },
   ],
   education: {
-    degree: 'Bachelor of Engineering in ECE',
-    spec: 'Specialization in Artificial Intelligence & Machine Learning',
+    degree: 'B.E. in Artificial Intelligence and Machine Learning',
+    spec: '2027 Batch',
     institution: 'Sai Vidya Institute of Technology, Bangalore',
-    dates: '2022 - 2026',
-    gpa: '3.90 / 4.00 equivalent',
+    dates: '2023 - 2027',
+    gpa: '8.4 CGPA',
   },
 };
 
@@ -31,11 +31,11 @@ export default function AboutPage() {
             About the Candidate
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mt-1 font-heading">
-            Bridging Electronics, Machine Learning & Embedded Intelligence
+            Building Practical Intelligent Systems & Software Applications
           </h1>
         </div>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          I am Kishore Biradar, a final-year Electronics and Communication Engineering student at Sai Vidya Institute of Technology, specializing in Applied AI and Machine Learning. My engineering philosophy centers on optimization—specifically, making deep learning models faster, more confidence-calibrated, and computationally cheaper to serve on resource-constrained edge hardware.
+          I am Kishore Biradar, a 2027 AI & Machine Learning engineering student at Sai Vidya Institute of Technology who enjoys building practical intelligent systems and exploring AI/ML, while developing strong programming and problem-solving skills.
         </p>
       </section>
 
